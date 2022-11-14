@@ -1,0 +1,161 @@
+@import "vendors";
+@import "components";
+@import "base";
+@import "utilities";
+
+
+* {
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, filter 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  scroll-behavior: smooth;
+  scrollbar-color: #AFDE0E white; /* scroll thumb and track */
+  scrollbar-width: thin; /* "auto" or "thin" */
+
+  &::-webkit-scrollbar {
+    height: 6px;
+    width: 6px; /* width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-md bg-orange-700;
+  }
+
+}
+
+.App {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  position: relative;
+}
+
+main {
+  overflow-x: hidden;
+}
+
+:root {
+  /*=====================
+  Colors
+  =======================*/
+  //colores
+  --gris_text_unal: #ddd;
+  --gris_unal: #999;
+  --gris_context: #666;
+  --gris-header: #484444e7;
+  --blanco: #fff;
+  --aspirantes: #2A044A;
+  --estudiantes: #0B2E59;
+  --egresados: #0D6759;
+  --docentes: #7AB317;
+  --administrativos: #5e9281;
+  --black-l: rgb(48, 48, 48);
+  --verde_unal: #94B43B;
+  --verde_unal_dark: #667c29;
+  --negro_unal: #333;
+  //Added
+  --menuBurguer_bg: #595555;
+  --accebility-btn-bg-color: #292929;
+  --accebility-btn-bg-color--hover: #0763c8;
+}
+
+html {
+  &.theme {
+    &--1 {
+      --gris-header: #2a044a;
+    }
+
+    &--2 {
+      --gris-header: #0b2e59;
+    }
+
+    &--3 {
+      --gris-header: #0d6759;
+    }
+  }
+
+  &.colors {
+    &--invert {
+      filter: invert(100%);
+    }
+  }
+
+  &.font-size {
+    &--0 {
+      font-size: calc(100% + (0% * 5));
+    }
+
+    &--1 {
+      font-size: calc(100% + (1% * 5));
+    }
+
+    &--2 {
+      font-size: calc(100% + (2% * 5));
+    }
+
+    &--3 {
+      font-size: calc(100% + (3% * 5));
+    }
+
+    &--4 {
+      font-size: calc(100% + (4% * 5));
+    }
+
+    &--5 {
+      font-size: calc(100% + (5% * 5));
+    }
+
+    &--6 {
+      font-size: calc(100% + (6% * 5));
+    }
+
+    &--7 {
+      font-size: calc(100% + (7% * 5));
+    }
+
+    &--8 {
+      font-size: calc(100% + (8% * 5));
+    }
+
+    &--9 {
+      font-size: calc(100% + (9% * 5));
+    }
+
+    &--10 {
+      font-size: calc(100% + (10% * 5));
+    }
+  }
+}
+
+.print {
+  display: block;
+
+  &--notPrintable {
+    @media print {
+      display: none !important;
+    }
+  }
+
+  &--onlyOnPrint {
+    display: none;
+
+    @media print {
+      display: block;
+    }
+  }
+
+  &--onPrint {
+    @media print {
+      display: block;
+    }
+  }
+}
+
+.grid-cards {
+  @apply grid gap-8;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+

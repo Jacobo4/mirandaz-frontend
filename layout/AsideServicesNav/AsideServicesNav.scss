@@ -1,0 +1,83 @@
+.AsideServicesNav {
+  margin: 0;
+  padding: 0;
+  background: gray;
+  position: fixed;
+  right: 0;
+  display: none;
+  z-index: 9999;
+  @screen md{
+    display: flex;
+  }
+
+  &--show {
+    .AsideServicesNav-toggleBtn {
+      right: 200px;
+      background-position: 35px 0;
+    }
+
+    .AsideServicesNav__list {
+      width: 200px;
+    }
+  }
+
+  &--hidden {
+    .AsideServicesNav__list {
+      width: 0px;
+    }
+  }
+
+
+  &__list {
+    transition: width 0.5s;
+    height: 100vh;
+    width: 200px;
+    background: var(--negro_unal);
+    overflow: hidden;
+
+
+  }
+
+  &__item {
+    padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+    border-bottom: 1px solid #222;
+    border-top: 1px solid #444;
+
+  }
+
+  &-toggleBtn {
+    border: none;
+    position: fixed;
+    top: 190px;
+    right: 0;
+    transition: right 0.5s;
+    width: 34px;
+    height: 126px;
+    background-position: 0 0;
+    background-color: var(--verde_unal);
+    cursor: pointer;
+  }
+
+  &-option {
+    color: var(--blanco);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    //NOTE: To prevent weird collapse on toggle transition
+    white-space: nowrap;
+    transition: 0.3s;
+    gap: 5px;
+
+    &:hover {
+      color: green;
+    }
+
+    &__icon {
+      margin-right: 0.315rem;
+    }
+
+    &__description {
+
+    }
+  }
+}

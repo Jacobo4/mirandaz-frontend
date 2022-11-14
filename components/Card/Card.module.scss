@@ -1,0 +1,36 @@
+.card {
+  @apply rounded-md shadow-md overflow-hidden hover:-translate-y-1;
+  &__header {
+    &-image {
+      * {
+        width: 100% !important;
+        height: 170px !important;
+      }
+
+      img {
+        object-position: center;
+        object-fit: cover;
+      }
+    }
+  }
+
+  &__body {
+    @apply p-4;
+    h4 {
+      @apply text-base font-bold;
+    }
+
+    p {
+      @apply text-sm;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 7;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  &__footer {
+    @apply p-4 pt-0 flex justify-end gap-2;
+  }
+
+}
