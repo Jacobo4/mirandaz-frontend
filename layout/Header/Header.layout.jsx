@@ -255,6 +255,10 @@ const Header = () => {
                         {/*    }*/}
 
                         {/*</li>*/}
+
+                        <li className={"ml-auto flex"}>
+                           <Link href="/signin"><a className={"text-xs btn btn-primary"}>Iniciar sesión</a></Link>
+                        </li>
                     </ul>
                     <div className="Header-dropdown">
                         <button className="Header-dropdown__button"
