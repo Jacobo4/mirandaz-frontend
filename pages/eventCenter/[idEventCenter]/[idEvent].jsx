@@ -4,77 +4,95 @@ import useFetch from "@hooks/useFetch";
 
 import image from "@assets/images/dommies/fiestaWallpaper.jpeg";
 import Link from "next/link";
+import {useEffect, useState} from "react";
 
 
 const UserProyectPage = () => {
-    
-    
-    const { query } = useRouter();
-    // console.log('fecha');
-    // {bar, isBar} = useFetch(`select party_id, party_name, fecha, asistentes, recaudo, imagen_fiesta, descripcion_fiesta, nombre_centro from fiesta, event_center 
-    // where fiesta.fiesta_list = event_center.fiestas_list
-    // `);
 
-    const fetchData = async () => {
+
+    const router = useRouter();
+    const [event, setEvent] = useState();
+
+    const handleAttend = async () => {
+
+        const query = `update fiesta
+                       set asistentes = asistentes + 1
+                       where party_id = ${router.query.idEvent}`;
+
         const options = {
             method: 'POST',
             headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-            authorization: 'Bearer v2_3w9b7_rFhC5nQyWzW2QNgFEVaL9hC'
+                accept: 'application/json',
+                'content-type': 'application/json',
+                authorization: 'Bearer v2_3w9b7_rFhC5nQyWzW2QNgFEVaL9hC'
             },
-            body: JSON.stringify({query_string: `select party_id, party_name, fecha, asistentes, recaudo, imagen_fiesta, descripcion_fiesta, nombre_centro from fiesta, event_center 
-            where fiesta.fiesta_list = event_center.fiestas_list
-            ` , database_name: 'MateoG404/Ingesoft'})
+            body: JSON.stringify({
+                query_string: query, database_name: 'MateoG404/Ingesoft'
+            })
         };
-        const options2 = {
-            method: 'POST',
-            headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-            authorization: 'Bearer v2_3w9b7_rFhC5nQyWzW2QNgFEVaL9hC'
-            },
-            body: JSON.stringify({query_string:`select * from event_center where  event_center_id = '${query.idEvent}'` , database_name: 'MateoG404/Ingesoft'})
-        };
-        const res = await fetch('https://enigmatic-escarpment-24863.herokuapp.com/https://api.bit.io/v2beta/query', options)
-        const response = await res.json();
-        setBar(response.data);
-        const res2 = await fetch('https://enigmatic-escarpment-24863.herokuapp.com/https://api.bit.io/v2beta/query', options2)
-        const response2 = await res2.json();
-        setParty(response2.data);
+        const res = await fetch('https://enigmatic-escarpment-24863.herokuapp.com/https://api.bit.io/v2beta/query', options).then(response => response.json())
+        if (res) router.push('/')
 
-        }
+    }
+
 
     useEffect(() => {
+
+        const fetchData = async () => {
+            const query = `select *
+                           from fiesta,
+                                event_center
+                           where fiestas_list = fiesta_list
+                             and event_center_id = ${router.query.idEventCenter}
+                             and party_id = ${router.query.idEvent}`;
+            console.log(query);
+            const options = {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    authorization: 'Bearer v2_3w9b7_rFhC5nQyWzW2QNgFEVaL9hC'
+                },
+                body: JSON.stringify({
+                    query_string: query, database_name: 'MateoG404/Ingesoft'
+                })
+            };
+            const res = await fetch('https://enigmatic-escarpment-24863.herokuapp.com/https://api.bit.io/v2beta/query', options).then(response => response.json())
+            setEvent(res.data[0])
+
+
+        }
         if (router.asPath !== router.route) {
-            try{
+            try {
                 fetchData();
                 console.log(party)
 
-            }
-            catch(err){
+            } catch (err) {
                 console.log(err)
             }
-         }
+        }
 
-        
+
         // const results = people.filter(person =>
         //     person.toLowerCase().includes(searchTerm)
         // );
         // setSearchResults(results);
-    }, [searchTerm]);
+    }, []);
 
-    return <div className="container grid gap-8 max-w-screen-lg">
-        <div className={"rounded-t-3xl overflow-hidden"}>
-            <Image src={image}></Image>
+    return event && <div className="container grid gap-8 max-w-screen-lg">
+        <div className={"rounded-t-3xl overflow-hidden relative w-screen h-96"}>
+            <Image src={event[6]} layout='fill' objectFit='contain'></Image>
         </div>
-        <h2>{query.idEvent}</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet at consectetur, cupiditate, deserunt distinctio dolore dolorem ducimus est excepturi expedita explicabo facere fugit harum id in, ipsa ipsam iste laborum magnam magni maiores nobis non perspiciatis qui quia quibusdam quod repellendus sint unde velit veniam voluptas voluptate! Animi deleniti dolores dolorum eaque eligendi eos, eveniet excepturi impedit necessitatibus non nulla numquam perspiciatis placeat quidem reprehenderit sapiente suscipit totam velit voluptates voluptatibus! Aperiam consequuntur dicta laborum reiciendis? A amet autem cum dolores explicabo harum pariatur quae quod ut voluptate! Architecto aut consequuntur distinctio dolores doloribus eius eligendi et expedita fugiat hic id illo illum incidunt, inventore laborum molestiae nam nihil numquam possimus praesentium rem reprehenderit repudiandae sint voluptas voluptatibus. Eaque labore laudantium magnam, officia quaerat quas rem temporibus totam! Accusamus debitis dignissimos fugiat minima nemo odit provident reprehenderit repudiandae rerum ut? A accusantium assumenda, atque consequatur cumque cupiditate distinctio doloremque dolores ducimus ea earum eius error exercitationem facere fugiat fugit illo illum ipsam iste laborum magnam modi, nam nobis, officia pariatur possimus quae quas quasi reprehenderit repudiandae sint sit sunt ullam ut vel velit veritatis! A asperiores, aspernatur atque autem eum minus molestiae totam veritatis! Aperiam assumenda culpa dolorem hic incidunt ipsum maiores, nostrum obcaecati placeat praesentium quae quas recusandae voluptatum? Atque consequuntur cum dolor eveniet laboriosam neque possimus rem sunt ullam veritatis! Ab aut cum esse quae velit! Amet aspernatur consequatur, dolorum earum fugiat ipsum laborum libero minus molestiae molestias odit omnis quis sapiente sint tempora velit voluptatem voluptatum.</p>
+        <h2>{event[1]}</h2>
+        <h3>{event[2]}</h3>
+        <p>{event[12]}</p>
         <div>
-             <button className="btn btn-primary">Asistir</button>
+            <button onClick={() => handleAttend()} className="btn btn-primary">Asistir</button>
         </div>
 
     </div>
+
+
 }
 
 export default UserProyectPage;

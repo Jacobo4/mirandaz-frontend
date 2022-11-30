@@ -54,7 +54,7 @@ const EditBioPage = () => {
     return (
         <div className="container">
             <div className={"grid gap-4 justify-center"}>
-                <h1 className={"text-center text-purple-700"}>Editar la biografía sasiuoiaoauo</h1>
+                <h1 className={"text-center text-purple-700"}>Editar la biografía</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={"w-full md:grid md:grid-cols-2 p-4"}>
                     <div>
                         <label htmlFor="username">Usuario</label>
