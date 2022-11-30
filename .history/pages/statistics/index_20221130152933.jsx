@@ -227,7 +227,7 @@ const Statistic = () => {
      
 
     return(
-      <div style={{ display: 'flex', justifyContent:'center'}} >
+      <div style={{ display: 'flex'}} >
          <div  style={{ width:'65vw', height:'30vw'  }}>
          <h2 className="text-center pb-4" >Asistentes</h2>
             <p className="text-center pb-4" > número de asistentes por fecha</p>

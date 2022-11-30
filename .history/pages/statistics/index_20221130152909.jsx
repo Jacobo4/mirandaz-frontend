@@ -69,6 +69,12 @@ const Statistic = () => {
      catch(err){
          console.log(err)
      }
+     const ctx = canvasEl.current.getContext("2d");
+     // const ctx = document.getElementById("myChart");
+     const gradient = ctx.createLinearGradient(0, 16, 0, 600);
+     gradient.addColorStop(0, colors.purple.half);
+     gradient.addColorStop(0.65, colors.purple.quarter);
+     gradient.addColorStop(1, colors.purple.zero);
 
 
    //   if(isDone){
@@ -227,7 +233,7 @@ const Statistic = () => {
      
 
     return(
-      <div style={{ display: 'flex', justifyContent:'center'}} >
+      <div style={{ display: 'flex'}} >
          <div  style={{ width:'65vw', height:'30vw'  }}>
          <h2 className="text-center pb-4" >Asistentes</h2>
             <p className="text-center pb-4" > número de asistentes por fecha</p>

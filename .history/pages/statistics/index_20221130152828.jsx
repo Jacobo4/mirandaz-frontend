@@ -69,6 +69,12 @@ const Statistic = () => {
      catch(err){
          console.log(err)
      }
+     const ctx = canvasEl.current.getContext("2d");
+     // const ctx = document.getElementById("myChart");
+     const gradient = ctx.createLinearGradient(0, 16, 0, 600);
+     gradient.addColorStop(0, colors.purple.half);
+     gradient.addColorStop(0.65, colors.purple.quarter);
+     gradient.addColorStop(1, colors.purple.zero);
 
 
    //   if(isDone){
@@ -214,7 +220,7 @@ const Statistic = () => {
      const myChart = new Chart(ctx2, config2);
  
      return function cleanup() {
-      
+      myLineChart.destroy();
        myChart.destroy();
      };
    
@@ -227,7 +233,12 @@ const Statistic = () => {
      
 
     return(
-      <div style={{ display: 'flex', justifyContent:'center'}} >
+      <div style={{ display: 'flex'}} >
+         <div style={{ width:'20vw', height:'30vw', marginRight:'10vw' }}>
+            <h2 className="text-center pb-4" >Ranking</h2>
+            <p className="text-center pb-4" > bares por número de estrellas</p>
+            <canvas id="myChart" ref={canvasEl} height="100" />
+         </div>
          <div  style={{ width:'65vw', height:'30vw'  }}>
          <h2 className="text-center pb-4" >Asistentes</h2>
             <p className="text-center pb-4" > número de asistentes por fecha</p>
