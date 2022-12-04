@@ -9,7 +9,7 @@ import bgImage from "@assets/images/login/bg-login.svg";
 import {signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../firebase.config";
 import Link from "next/link";
-import {FcGoogle} from "react-icons/fc";
+// import {FcGoogle} from "react-icons/fc";
 
 
 const LoginPage = () => {
@@ -94,7 +94,8 @@ const LoginPage = () => {
                 <div className={"grid gap-4 place-items-center"}>
                     <button className={"btn btn-primary border border-slate-300 text-slate-400 font-normal text-base"}
                             type="button" onClick={() => handleAuth()}>
-                        <FcGoogle/> Inicia sesión con Google
+                        {/*<FcGoogle/>*/}
+                        Inicia sesión con Google
                     </button>
                 </div>
 
