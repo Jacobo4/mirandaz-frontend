@@ -9,7 +9,7 @@ import bgImage from "@assets/images/login/bg-login.svg";
 import {signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../firebase.config";
 import Link from "next/link";
-import {FcGoogle} from "react-icons/all";
+import {FcGoogle} from "react-icons/fc";
 
 
 const LoginPage = () => {
