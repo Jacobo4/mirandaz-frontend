@@ -27,9 +27,12 @@ import socialMediaBg from '@assets/images/layout/icnSocial.png';
 import locationIcon from '@assets/images/layout/icon-location.svg';
 import iconAccesibility from '@assets/images/layout/access-icon.png';
 import iconAccesibilityBlue from '@assets/images/layout/access-icon.jpg';
+import useAuth from "@hooks/useAuth";
+import {auth} from "../../firebase.config";
 
 const Header = () => {
 
+    const {isLoggedIn, user} = useAuth();
 
 
     const languages = [
@@ -247,18 +250,15 @@ const Header = () => {
                         {/*    </li>*/}
                         {/*}*/}
 
-                        {/*<li className={"ml-auto flex"}>*/}
-                        {/*    /!*{isLoggedIn ? <button className={"text-xs btn btn-primary"} onClick={()=> handleLogout()}>Cerrar sesión</button>: <Link className={"text-xs btn btn-primary"} to="/signin">Inicia sesión</Link>}*!/*/}
-                        {/*    {session ?*/}
-                        {/*        <button onClick={() => signOut({redirect:false})} className={"text-xs btn btn-primary"}>Cerrar sesión</button> :*/}
-                        {/*        <Link href="/signin"><a className={"text-xs btn btn-primary"}>Iniciar sesión</a></Link>*/}
-                        {/*    }*/}
-
-                        {/*</li>*/}
-
                         <li className={"ml-auto flex"}>
-                           <Link href="/signin"><a className={"text-xs btn btn-primary"}>Iniciar sesión</a></Link>
+                            {/*{isLoggedIn ? <button className={"text-xs btn btn-primary"} onClick={()=> handleLogout()}>Cerrar sesión</button>: <Link className={"text-xs btn btn-primary"} to="/signin">Inicia sesión</Link>}*/}
+                            {isLoggedIn ?
+                                <button onClick={() => auth.signOut()} className={"text-xs btn btn-primary"}>Cerrar sesión</button> :
+                                <Link href="/auth/signin"><a className={"text-xs btn btn-primary"}>Iniciar sesión</a></Link>
+                            }
+
                         </li>
+
                     </ul>
                     <div className="Header-dropdown">
                         <button className="Header-dropdown__button"

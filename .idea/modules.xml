@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/mirandaz-frontend.iml" filepath="$PROJECT_DIR$/.idea/mirandaz-frontend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../UAPA/uapafolios/.idea/uapafolios.iml" filepath="$PROJECT_DIR$/../UAPA/uapafolios/.idea/uapafolios.iml" />
     </modules>
   </component>
 </project>

@@ -8,14 +8,17 @@ import {BsArrowRight, BsTools, BsFillBrightnessHighFill} from "react-icons/bs";
 import {IoCloseCircle} from "react-icons/io5";
 import {useToggle} from "@utils/index";
 import {useEffect} from "react";
+import useAuth from "@hooks/useAuth";
 
 
 const AsideNav = () => {
 
     const [isAsideNavOpen, toggleAsideNav] = useToggle(false);
+    const {isLoggedIn, user} = useAuth();
 
 
-    return <>
+
+    return  isLoggedIn &&  <>
         <button className={"AsideNav-toggleBtn"} onClick={toggleAsideNav}>
             <BsTools/>
         </button>
@@ -26,13 +29,12 @@ const AsideNav = () => {
                 </button>
                 <div className={"p-8 gap-4 grid place-items-center"}>
                     <figure>
-                        <div className={"m-auto w-32"}>
-                            <Image src={profileImage} className={"rounded-full"} alt={""}/>
+                        <div className={"m-auto w-32 relative w-32 h-32"}>
+                            <Image src={user.photoURL ? user.photoURL: profileImage } layout={"fill"} className={"rounded-full"} alt={""}/>
                         </div>
                         <figcaption className={"grid gap-2 pt-4 text-center"}>
-                            <h6 className={"bold text-lg"}>Juan Jacobo Izquierdo Becerra</h6>
-                            <h6 className={"text-xs font-light "}>juizquierdo@unal.edu.co</h6>
-                            <h6 className={"text-xs font-light "}>Ingeniería de Sistemas y Computación</h6>
+                            <h6 className={"bold text-lg"}>{user.displayName}</h6>
+                            <h6 className={"text-xs font-light "}>{user.email}</h6>
                         </figcaption>
                     </figure>
                     <Link href={"/settings/editBio"}><a className={"btn btn-primary"} onClick={toggleAsideNav}>Editar</a></Link>
