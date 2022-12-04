@@ -10,12 +10,15 @@ import image2 from "@assets/images/dommies/eventCenter2.jpeg";
 import image3 from "@assets/images/dommies/eventCenter3.png";
 import Card from "@components/Card/Card";
 import Link from "next/link";
+import useSwr from 'swr';
 
 const images = [image1, image2, image3];
-
+const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function Home() {
 
+    const { data, error } = useSwr('/api/twits', fetcher)
+    console.log(data)
 
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -29,7 +32,7 @@ export default function Home() {
         //     person.toLowerCase().includes(searchTerm)
         // );
         // setSearchResults(results);
-    }, [searchTerm]);
+    }, []);
 
     const imagesDivs = images.map((image, i) => (
         <Card key={i} imageUrl={image} title={`Centro de eventos ${i}`} description={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto eos eveniet explicabo fuga placeat quidem repellat vero voluptates! Autem doloribus esse labore minus molestiae nam, nihil porro quas, quibusdam quod, reprehenderit ullam vero voluptas. Consectetur, deserunt eligendi error ipsum maiores mollitia neque perspiciatis quisquam reprehenderit sapiente similique tempore veniam vitae!"}
