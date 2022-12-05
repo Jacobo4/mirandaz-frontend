@@ -35,9 +35,9 @@ const EventProfilePage = () => {
 
     useEffect(() => {
 
-        const results = parties.filter(party =>
+        const results = parties ? parties.filter(party =>
             party.party_name.toLowerCase().includes(searchTerm)
-        );
+        ): [];
         setSearchResults(results);
 
         console.log(searchResults);

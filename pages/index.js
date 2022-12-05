@@ -27,9 +27,9 @@ export default function Home() {
 
     useEffect(() => {
 
-        const results = eventCenters.filter(eventCenter =>
+        const results = eventCenters ? eventCenters.filter(eventCenter =>
             eventCenter.nombre_centro.toLowerCase().includes(searchTerm)
-        );
+        ) : [];
         setSearchResults(results);
 
         console.log(searchResults);
