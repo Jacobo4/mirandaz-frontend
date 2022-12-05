@@ -12,13 +12,11 @@ import Card from "@components/Card/Card";
 import Link from "next/link";
 import useSwr from 'swr';
 
-const images = [image1, image2, image3];
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function Home() {
 
-    const { data, error } = useSwr('/api/twits', fetcher)
-    console.log(data)
+    const {data: images, error} = useSwr('/api/twitter/event-centers', fetcher);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -32,13 +30,23 @@ export default function Home() {
         //     person.toLowerCase().includes(searchTerm)
         // );
         // setSearchResults(results);
+        //     console.log(images.length);
+
     }, []);
 
-    const imagesDivs = images.map((image, i) => (
-        <Card key={i} imageUrl={image} title={`Centro de eventos ${i}`} description={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto eos eveniet explicabo fuga placeat quidem repellat vero voluptates! Autem doloribus esse labore minus molestiae nam, nihil porro quas, quibusdam quod, reprehenderit ullam vero voluptas. Consectetur, deserunt eligendi error ipsum maiores mollitia neque perspiciatis quisquam reprehenderit sapiente similique tempore veniam vitae!"}
-            actions={(
-                <Link href={`/eventCenter/event-center-${i}`}><a className="btn btn-secondary">Visitar</a></Link>
-            )}
+    const imagesDivs = !images ? [] : images.map(({
+                                       event_center_id,
+                                       descripcion_centro,
+                                       fiestas_list,
+                                       imagen_centro,
+                                       nombre_centro,
+                                       ranking,
+                                   }, i) => (
+        <Card key={i} imageUrl={imagen_centro} title={nombre_centro}
+              description={descripcion_centro}
+              actions={(
+                  <Link href={`/eventCenter/${event_center_id}`}><a className="btn btn-secondary">Visitar</a></Link>
+              )}
         />
     ));
     return (
@@ -51,12 +59,11 @@ export default function Home() {
 
             <div className="container grid gap-8">
                 <div className={"relative w-full max-w-2xl m-auto flex items-center"}>
-                    <input className={"pl-12 w-full"} id="username" type="text" placeholder={"Buscar..."} onChange={handleChange}/>
+                    <input className={"pl-12 w-full"} id="username" type="text" placeholder={"Buscar..."}
+                           onChange={handleChange}/>
                     <span className={"absolute text-base text-gray-500 left-4"}><BsSearch/></span>
                 </div>
                 <div className={"grid-cards"}>
-                    {imagesDivs}
-                    {imagesDivs}
                     {imagesDivs}
                 </div>
             </div>

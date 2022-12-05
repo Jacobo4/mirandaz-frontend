@@ -3,7 +3,7 @@ import Image from "next/image";
 //Styles (Are imported globally in _app.tsx file due to next js rules
 // import './AsideNav.scss';
 //Images
-import profileImage from "@assets/images/dommies/profile.jpeg";
+import profileImage from "@assets/images/dommies/profile.png";
 import {BsArrowRight, BsTools, BsFillBrightnessHighFill} from "react-icons/bs";
 import {IoCloseCircle} from "react-icons/io5";
 import {useToggle} from "@utils/index";

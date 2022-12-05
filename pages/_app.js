@@ -5,8 +5,12 @@ import '@layout/Header/Header.scss';
 import '@layout/Footer/Footer.scss';
 import Layout from "@layout/index.layout";
 import {AuthChecker} from "@components/AuthChecker/AuthCheker";
+import { useRouter } from 'next/router'
+
 
 function MyApp({Component, pageProps}) {
+    const router = useRouter();
+
     return (
         <Layout>
             <AuthChecker>

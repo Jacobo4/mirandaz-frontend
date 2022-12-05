@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import profileImage from "@assets/images/dommies/profile.jpeg";
+import profileImage from "@assets/images/dommies/profile.png";
 
 import image1 from "@assets/images/dommies/fiesta1.jpeg";
 import image2 from "@assets/images/dommies/fiesta2.jpeg";

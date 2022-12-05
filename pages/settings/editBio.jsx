@@ -1,14 +1,22 @@
 //Core
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 //Form
 import {useForm} from "react-hook-form";
 //Dropzone
 import {useDropzone} from 'react-dropzone';
 //Icons
 import {BsFillTrashFill} from "react-icons/bs";
+import useAuth from "@hooks/useAuth";
+import {getAuth, updateProfile, updateEmail, updatePassword} from "firebase/auth";
+
+import {useRouter} from 'next/router';
 
 
 const EditBioPage = () => {
+
+    const {isLoggedIn, user} = useAuth();
+    const router = useRouter();
+
 
     // ------------------- Dropzone ---------------------
     const [avatarFile, setAvatarFile] = useState(null);
@@ -31,18 +39,21 @@ const EditBioPage = () => {
 
     // ------------------- Form ---------------------
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const onSubmit = async (data) => {
-        const requestOptions = {
-            method: 'PUT',
-            body: JSON.stringify({
-                data: {...data},
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            redirect: 'follow'
-        };
-        const userCreated = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, requestOptions);
+    const onSubmit = async ({email, displayName, password, photoURL}) => {
+
+
+
+        try {
+            if (email) await updateEmail(user, email);
+            if (displayName && photoURL) await updateProfile(user, {displayName, photoURL});
+            if (displayName) await updateProfile(user, {displayName});
+            if (photoURL) await updateProfile(user, {photoURL});
+            if (password) await updatePassword(user, password);
+            await  router.push("/");
+        } catch (e) {
+            console.log(e)
+        }
+
     };
 
 
@@ -52,28 +63,39 @@ const EditBioPage = () => {
                 <h1 className={"text-center text-purple-700"}>Editar biografía</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={"w-full md:grid md:grid-cols-2 p-4"}>
                     <div>
-                        <label htmlFor="username">Usuario</label>
-                        <input id="description" type="text"
-                               {...register("username")}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="username">Descripción</label>
-                        <input id="linkPortfolio" type="text"
-                               {...register("description")}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="username">Correo</label>
-                        <input id="linkPortfolio" type="text"
+                        <label htmlFor="email">Correo electrónico</label>
+                        <input id="email" type="text"
                                {...register("email")}
                         />
+
                     </div>
 
-                    <div className={"md:col-span-2"}>
-                        <label>Imagen de perfíl</label>
+                    <div>
+                        <label htmlFor="password">Constraseña</label>
+                        <input id="password" type="password"
+                               {...register("password")}
+                        />
+
+                    </div>
+
+                    <div>
+                        <label htmlFor="displayName">Nombre completo</label>
+                        <input id="displayName" type="text"
+                               {...register("displayName")}
+                        />
+
+                    </div>
+
+                    <div>
+                        <label htmlFor="photoURL">Url de la imagen de perfíl</label>
+                        <input id="photoURL" type="text"
+                               {...register("photoURL")}
+                        />
+
+                    </div>
+
+                    <div className={"md:col-span-2 pointer-events-none opacity-50"}>
+                        <label>Imagen de perfíl (en construcción) </label>
                         <div {...getRootAvatarProps({className: 'dropzone'})}>
                             <input {...getInputAvatarProps()} />
                             <p>Arrastra y suelta la imagen que quieres subir</p>
@@ -81,7 +103,7 @@ const EditBioPage = () => {
                         <ul className={"md:col-span-2"}>{avatarFile &&
                             <li className={"flex align-center"}>
                                 {avatarFile[0].path} - {avatarFile[0].size} bytes <button type="button"
-                                                                                    onClick={() => removeAcceptedAvatarFile()}>
+                                                                                          onClick={() => removeAcceptedAvatarFile()}>
                                 <BsFillTrashFill
                                     className={"text-orange-700"}/></button>
                             </li>}
