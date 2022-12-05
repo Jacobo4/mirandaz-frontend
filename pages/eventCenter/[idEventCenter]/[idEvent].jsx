@@ -11,8 +11,25 @@ const fetcher = (url) => fetch(url).then((res) => res.json())
 
 const UserProyectPage = () => {
 
-    const {query} = useRouter();
-    const {data: partyInfo, error1} = useSwr(`/api/twitter/party/${query.idEvent}`, fetcher);
+    const router = useRouter();
+    const {data: partyInfo, error1} = useSwr(`/api/twitter/party/${router.query.idEvent}`, fetcher);
+
+    const handleAttendants = async () => {
+        const response = await fetch(`/api/twitter/party/increment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                partyId: partyInfo.party_id,
+                attendants: `${partyInfo.asistentes + 1}`
+            })
+        });
+
+
+        await router.back();
+
+    }
 
 
     return partyInfo &&
@@ -26,7 +43,7 @@ const UserProyectPage = () => {
             <h4>Fecha: {partyInfo.fecha}</h4>
             <p>{partyInfo.descripcion_fiesta}</p>
             <div>
-                <button className="btn btn-primary">Asistir</button>
+                <button className="btn btn-primary" onClick={() => handleAttendants()}>Asistir</button>
             </div>
 
         </div>)

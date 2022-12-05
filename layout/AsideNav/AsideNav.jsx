@@ -43,8 +43,8 @@ const AsideNav = () => {
                 <nav className={"p-4"}>
                     <ul className={"grid gap-2"} onClick={toggleAsideNav}>
                         <li>
-                            <Link href="/user/">
-                                <a className={"flex pb-2 gap-2 justify-between items-center border-b border-solid hover:text-purple-300"}><span>Mis eventos</span><BsArrowRight/></a>
+                            <Link href="/statistic/">
+                                <a className={"flex pb-2 gap-2 justify-between items-center border-b border-solid hover:text-purple-300"}><span>Estadísticas</span><BsArrowRight/></a>
                             </Link>
                         </li>
                     </ul>

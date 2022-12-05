@@ -4,8 +4,8 @@ import {ScanCommand} from "@aws-sdk/lib-dynamodb";
 export default async function handler(req, res) {
     if (req.method === 'GET') {
         const params = {
-            TableName: "list_event",
-            Limit: 10,
+            TableName: "fiesta",
+            // Limit: 10,
         };
         const {Items} = await mongoDBClient.send(new ScanCommand(params));
         return res.status(200).json(Items);
