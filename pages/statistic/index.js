@@ -16,8 +16,6 @@ const Statistic = () => {
 
     const {data: parties, error1} = useSwr(`/api/twitter/parties/`, fetcher);
 
-    parties && console.log(parties);
-
     const canvasEl = useRef(null);
     const canvasEl2 = useRef(null);
 
@@ -42,7 +40,7 @@ const Statistic = () => {
         gradient2.addColorStop(0.65, colors.purple.quarter);
         gradient2.addColorStop(1, colors.purple.zero);
 
-        const labels2 = parties && parties.map((party) => party.party_name);
+        const labels2 = parties && parties.map((party) => `Fiesta ${party.party_id}`);
         const weight2 = parties && parties.map((party) => party.asistentes);
 
         const data2 = {

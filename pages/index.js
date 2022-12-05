@@ -16,7 +16,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function Home() {
 
-    const {data: images, error} = useSwr('/api/twitter/event-centers', fetcher);
+    const {data: eventCenters, error} = useSwr('/api/twitter/event-centers', fetcher);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -26,15 +26,17 @@ export default function Home() {
     };
 
     useEffect(() => {
-        // const results = people.filter(person =>
-        //     person.toLowerCase().includes(searchTerm)
-        // );
-        // setSearchResults(results);
-        //     console.log(images.length);
 
-    }, []);
+        const results = eventCenters.filter(eventCenter =>
+            eventCenter.nombre_centro.toLowerCase().includes(searchTerm)
+        );
+        setSearchResults(results);
 
-    const imagesDivs = !images ? [] : images.map(({
+        console.log(searchResults);
+
+    }, [eventCenters, searchTerm]);
+
+    const imagesDivs = !eventCenters ? [] : searchResults.map(({
                                        event_center_id,
                                        descripcion_centro,
                                        fiestas_list,

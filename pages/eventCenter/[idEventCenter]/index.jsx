@@ -26,7 +26,7 @@ const EventProfilePage = () => {
         error2
     } = useSwr(profileInfo ? `/api/twitter/parties/${profileInfo.fiestas_list}` : null, fetcher);
 
-    const [searchTerm, setSearchTerm] = useState("");
+   const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
     const handleChange = event => {
@@ -35,13 +35,16 @@ const EventProfilePage = () => {
 
     useEffect(() => {
 
-        // const results = people.filter(person =>
-        //     person.toLowerCase().includes(searchTerm)
-        // );
-        // setSearchResults(results);
-    }, [searchTerm]);
+        const results = parties.filter(party =>
+            party.party_name.toLowerCase().includes(searchTerm)
+        );
+        setSearchResults(results);
 
-    const imagesDivs = !parties ? [] : parties.map(({
+        console.log(searchResults);
+
+    }, [parties, searchTerm]);
+
+    const imagesDivs = !parties ? [] : searchResults.map(({
                                                         party_id,
                                                         imagen_fiesta,
                                                         party_name,
